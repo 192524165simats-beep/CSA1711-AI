@@ -1,0 +1,29 @@
+from collections import deque
+
+q = deque([(3, 3, 0)])
+visited = set()
+
+while q:
+    m, c, b = q.popleft()
+
+    if (m, c, b) in visited:
+        continue
+    visited.add((m, c, b))
+
+    print(m, c, b)
+
+    if (m, c, b) == (0, 0, 1):
+        print("Goal reached!")
+        break
+
+    moves = [(1,0),(2,0),(0,1),(0,2),(1,1)]
+
+    for x, y in moves:
+        if b == 0:
+            nm, nc, nb = m-x, c-y, 1
+        else:
+            nm, nc, nb = m+x, c+y, 0
+
+        if 0 <= nm <= 3 and 0 <= nc <= 3:
+            if (nm == 0 or nm >= nc) and (3-nm == 0 or 3-nm >= 3-nc):
+                q.append((nm, nc, nb))

@@ -1,0 +1,27 @@
+from collections import deque
+
+a, b = 4, 3
+goal = 2
+
+q = deque([(0, 0)])
+visited = set()
+
+while q:
+    x, y = q.popleft()
+
+    if (x, y) in visited:
+        continue
+
+    visited.add((x, y))
+    print(x, y)
+
+    if x == goal or y == goal:
+        print("Goal reached!")
+        break
+
+    q.extend([
+        (a, y), (x, b),
+        (0, y), (x, 0),
+        (max(0, x-(b-y)), min(b, x+y)),
+        (min(a, x+y), max(0, y-(a-x)))
+    ])
